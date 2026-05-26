@@ -15,6 +15,10 @@ setopt AUTOCD
 setopt NOBEEP
 setopt NUMERIC_GLOB_SORT # sorts file10 after file9, not after file1
 
+# Completion
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+
 
 # Smart directory navigation with zoxide
 # Initialize zoxide
