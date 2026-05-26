@@ -28,6 +28,7 @@ PATH=$PATH:$(go env GOPATH)/bin
 PATH=$PATH:$HOME/.asdf/installs/rust/1.88.0/bin/
 PATH=$HOME/.asdf/installs/nodejs/24.14.0/bin:$PATH
 PATH=$HOME/.opencode/bin:$PATH
+PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 
 export PATH
 
