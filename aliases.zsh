@@ -27,6 +27,7 @@ alias diff="diff --color=auto"
 alias df="df -h"
 alias ptbr="setxkbmap br"
 alias enus="setxkbmap us"
+alias copy="xclip -sel clip"
 
 # Editor
 alias vim="nvim"
