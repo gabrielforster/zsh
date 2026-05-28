@@ -13,6 +13,7 @@ setopt HIST_FIND_NO_DUPS
 # Shell behavior
 setopt AUTOCD
 setopt NOBEEP
+bindkey -e
 setopt NUMERIC_GLOB_SORT # sorts file10 after file9, not after file1
 
 # Completion
