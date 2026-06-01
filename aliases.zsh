@@ -37,6 +37,7 @@ alias vim="nvim"
 alias glog='PAGER="less -F -X" git log'
 alias gadog='PAGER="less -F -X" git log --all --decorate --oneline --graph'
 alias gst="git status"
+alias dotfiles="git --git-dir='$HOME'/.dotfiles --work-tree='$HOME'"
 
 
 # Tmux session manager
