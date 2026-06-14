@@ -24,6 +24,7 @@ PATH=$HOME/bin:/usr/local/bin:$PATH
 PATH=$HOME/bin:/usr/local/go/bin:$PATH
 PATH=$HOME/neovim/bin:$PATH
 PATH=$HOME/.local/bin:$PATH
+PATH=$HOME/.local/share/../bin:$PATH
 PATH=$PATH:$(go env GOPATH)/bin
 PATH=$PATH:$HOME/.asdf/installs/rust/1.88.0/bin/
 PATH=$HOME/.asdf/installs/nodejs/24.14.0/bin:$PATH
