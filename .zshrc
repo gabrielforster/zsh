@@ -58,5 +58,3 @@ source "$ZDOTDIR/plugins.zsh"
 source "$ZDOTDIR/functions.zsh"
 source "$ZDOTDIR/prompt.zsh"
 xset r rate 200 42
-
-. "$HOME/.local/share/../bin/env"
