@@ -55,3 +55,8 @@ branchlet() {
     command branchlet "$@"
   fi
 }
+
+backward-kill-dir () {
+  local WORDCHARS=${WORDCHARS/\/}
+  zle backward-kill-word
+}
