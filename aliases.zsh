@@ -41,7 +41,11 @@ alias dotfiles="git --git-dir='$HOME'/.dotfiles --work-tree='$HOME'"
 
 
 # Tmux session manager
-alias ts='~/.config/scripts/tmux-sessionier.sh'
+alias ts='~/.config/scripts/tmux-sessionizer.sh'
+
+
+# Herdr session manager
+alias hs='~/.config/scripts/herdr-sessionizer.sh'
 
 
 # background setter
