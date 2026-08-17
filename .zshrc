@@ -57,4 +57,15 @@ source "$ZDOTDIR/bindings.zsh"
 source "$ZDOTDIR/plugins.zsh"
 source "$ZDOTDIR/functions.zsh"
 source "$ZDOTDIR/prompt.zsh"
+source "$ZDOTDIR/.zshenvwork"
 xset r rate 200 42
+
+. "$HOME/.local/share/../bin/env"
+
+# pnpm
+export PNPM_HOME="/home/gabrielrocha/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME/bin:"*) ;;
+  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
+# pnpm end
