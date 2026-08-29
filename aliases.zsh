@@ -25,9 +25,19 @@ fi
 alias grep="rg --color=auto"
 alias diff="diff --color=auto"
 alias df="df -h"
-alias ptbr="setxkbmap br"
-alias enus="setxkbmap us"
-alias copy="xclip -sel clip"
+
+# Keyboard layout + clipboard: Wayland (Hyprland) vs X11
+if [[ -n "$WAYLAND_DISPLAY" ]]; then
+  alias ptbr="hyprctl keyword input:kb_layout br"
+  alias enus="hyprctl keyword input:kb_layout us"
+  alias copy="wl-copy"
+  alias paste="wl-paste"
+else
+  alias ptbr="setxkbmap br"
+  alias enus="setxkbmap us"
+  alias copy="xclip -sel clip"
+  alias paste="xclip -sel clip -o"
+fi
 
 # Editor
 alias vim="nvim"
@@ -48,8 +58,13 @@ alias ts='~/.config/scripts/tmux-sessionizer.sh'
 alias hs='~/.config/scripts/herdr-sessionizer.sh'
 
 
-# background setter
-alias fehbg='~/.config/scripts/fehbg'
+# background setter: omarchy manages wallpapers on Wayland, feh on X11
+if command -v omarchy-theme-bg-next >/dev/null 2>&1; then
+  alias bgnext='omarchy theme bg next'
+  alias fehbg='omarchy theme bg next'
+else
+  alias fehbg='~/.config/scripts/fehbg'
+fi
 
 
 # Node

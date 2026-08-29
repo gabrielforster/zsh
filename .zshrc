@@ -2,6 +2,7 @@
 HISTFILE="$XDG_STATE_HOME/zsh/history"
 HISTSIZE=10000
 SAVEHIST=10000
+mkdir -p "${HISTFILE:h}"
 
 setopt APPEND_HISTORY
 setopt SHARE_HISTORY
@@ -17,9 +18,15 @@ bindkey -e
 setopt NUMERIC_GLOB_SORT # sorts file10 after file9, not after file1
 
 # Completion
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
+
+# Runtime version manager
+# mise (Arch/Omarchy) or asdf (Debian/Ubuntu) — whichever is present
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
 
 # Smart directory navigation with zoxide
 # Initialize zoxide
@@ -51,21 +58,17 @@ if [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
 fi
 
 # Source modular config files
+# NOTE: plugins.zsh must load before bindings.zsh — bindings.zsh binds widgets
+# (history-substring-search-up/down) that the plugins define.
 source "$ZDOTDIR/fzf.zsh"
 source "$ZDOTDIR/aliases.zsh"
-source "$ZDOTDIR/bindings.zsh"
 source "$ZDOTDIR/plugins.zsh"
 source "$ZDOTDIR/functions.zsh"
+source "$ZDOTDIR/bindings.zsh"
 source "$ZDOTDIR/prompt.zsh"
-source "$ZDOTDIR/.zshenvwork"
-xset r rate 200 42
 
-. "$HOME/.local/share/../bin/env"
+# Machine/work-specific overrides, untracked
+[[ -f "$ZDOTDIR/.zshenvwork" ]] && source "$ZDOTDIR/.zshenvwork"
 
-# pnpm
-export PNPM_HOME="/home/gabrielrocha/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME/bin:"*) ;;
-  *) export PATH="$PNPM_HOME/bin:$PATH" ;;
-esac
-# pnpm end
+# uv / astral env
+[[ -f "$HOME/.local/bin/env" ]] && source "$HOME/.local/bin/env"

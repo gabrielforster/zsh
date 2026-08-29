@@ -19,24 +19,38 @@ export GPG_TTY=$(tty)
 
 # Path
 # Personal binaries/scripts
-PATH=$PATH
-PATH=$HOME/bin:/usr/local/bin:$PATH
-PATH=$HOME/bin:/usr/local/go/bin:$PATH
-PATH=$HOME/neovim/bin:$PATH
-PATH=$HOME/.local/bin:$PATH
-PATH=$PATH:$(go env GOPATH)/bin
-PATH=$PATH:$HOME/.asdf/installs/rust/1.88.0/bin/
-PATH=$PATH:$HOME/.asdf/installs/rust/stable/bin/
-PATH=$HOME/.asdf/installs/nodejs/24.16.0/bin:$PATH
-PATH=$HOME/.opencode/bin:$PATH
-PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+typeset -U path   # keep PATH entries unique
+path=(
+  "$HOME/bin"
+  "$HOME/.local/bin"
+  /usr/local/bin
+  $path
+)
+
+# Go (system install on Arch, /usr/local/go on Debian/Ubuntu)
+if [[ -d /usr/local/go/bin ]]; then
+  path=(/usr/local/go/bin $path)
+fi
+if command -v go >/dev/null 2>&1; then
+  path+=("$(go env GOPATH)/bin")
+fi
+
+# asdf shims (only when asdf is the active version manager)
+if [[ -d "${ASDF_DATA_DIR:-$HOME/.asdf}/shims" ]]; then
+  path=("${ASDF_DATA_DIR:-$HOME/.asdf}/shims" $path)
+fi
+
+# Rust/cargo binaries (ai-jail etc.)
+[[ -d "$HOME/.cargo/bin" ]] && path=("$HOME/.cargo/bin" $path)
+
+[[ -d "$HOME/.opencode/bin" ]] && path=("$HOME/.opencode/bin" $path)
 
 export PATH
 
 # Pager for man
 if command -v batcat >/dev/null 2>&1; then
     export MANPAGER="batcat -l man -p"
-else
+elif command -v bat >/dev/null 2>&1; then
     export MANPAGER="bat -l man -p"
 fi
 
