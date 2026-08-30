@@ -1,8 +1,8 @@
 # Modern cli replacements
-alias ls="eza --icons"
-alias ll="eza -lh --icons --git"
-alias la="eza -lah --icons --git"
-alias tree="eza --tree --icons"
+alias ls="eza --icons=auto"
+alias ll="eza -lh --icons=auto --git"
+alias la="eza -lah --icons=auto --git"
+alias tree="eza --tree --icons=auto"
 
 
 # Better cat command (bat on Arch, batcat on Debian/Ubuntu)
