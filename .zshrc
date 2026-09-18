@@ -57,6 +57,20 @@ if [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then
   source /usr/share/doc/fzf/examples/completion.zsh
 fi
 
+# Omarchy shell utilities
+# Mirrors ~/.bashrc, minus the bash-only bits ($OMARCHY_PATH/default/bash/shell
+# and init) — history, completion, mise, starship, zoxide and fzf are already
+# set up above in their zsh form. Sourced before the modular files below so the
+# personal aliases/functions in this repo win any name collision.
+if [[ -n "$OMARCHY_PATH" ]]; then
+  source "$OMARCHY_PATH/default/bash/envs"
+  source "$OMARCHY_PATH/default/bash/aliases"
+  for _omarchy_fn in "$OMARCHY_PATH"/default/bash/fns/*(N); do
+    source "$_omarchy_fn"
+  done
+  unset _omarchy_fn
+fi
+
 # Source modular config files
 # NOTE: plugins.zsh must load before bindings.zsh — bindings.zsh binds widgets
 # (history-substring-search-up/down) that the plugins define.
@@ -72,3 +86,6 @@ source "$ZDOTDIR/prompt.zsh"
 
 # uv / astral env
 [[ -f "$HOME/.local/bin/env" ]] && source "$HOME/.local/bin/env"
+
+# opencode
+export PATH=/home/gabriel/.opencode/bin:$PATH
